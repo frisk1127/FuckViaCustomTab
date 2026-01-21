@@ -20,6 +20,7 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
     public void handleLoadPackage(final XC_LoadPackage.LoadPackageParam lpparam) {
         hookCustomTabsIntent(lpparam);
         hookStartActivity();
+        hookViaTrampoline(lpparam);
     }
 
     private void hookCustomTabsIntent(final XC_LoadPackage.LoadPackageParam lpparam) {
@@ -86,6 +87,47 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
         );
     }
 
+    private void hookViaTrampoline(final XC_LoadPackage.LoadPackageParam lpparam) {
+        if (!"mark.via".equals(lpparam.packageName) && !"mark.via.gp".equals(lpparam.packageName)) {
+            return;
+        }
+
+        try {
+            XposedHelpers.findAndHookMethod(
+                    "mark.via.Trampoline",
+                    lpparam.classLoader,
+                    "onCreate",
+                    Bundle.class,
+                    new XC_MethodHook() {
+                        @Override
+                        protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                            Activity act = (Activity) param.thisObject;
+                            Intent intent = act.getIntent();
+                            if (intent == null) return;
+
+                            Uri url = intent.getData();
+                            boolean isCustomTab = intent.getBooleanExtra("CUSTOM_TAB", false)
+                                    || hasCustomTabExtras(intent);
+
+                            if (url != null && isCustomTab) {
+                                XposedBridge.log("Trampoline opened via CustomTab. Redirecting to Shell.");
+
+                                Intent newIntent = new Intent(intent);
+                                newIntent.setComponent(new ComponentName(lpparam.packageName, "mark.via.Shell"));
+                                newIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                newIntent.setData(url);
+
+                                act.startActivity(newIntent);
+                                act.finish();
+                            }
+                        }
+                    }
+            );
+        } catch (Throwable t) {
+            XposedBridge.log("Trampoline hook skipped (Class not found or method changed)");
+        }
+    }
+
     private boolean isCustomTabIntent(Intent intent) {
         ComponentName component = intent.getComponent();
         if (component != null) {
@@ -117,5 +159,18 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
                 intent.removeExtra(key);
             }
         }
+    }
+
+    private boolean hasCustomTabExtras(Intent intent) {
+        Bundle extras = intent.getExtras();
+        if (extras == null) return false;
+
+        for (String key : extras.keySet()) {
+            if (key.startsWith("androidx.browser.customtabs.extra.")
+                    || key.startsWith("android.support.customtabs.extra.")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
