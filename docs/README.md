@@ -3,6 +3,8 @@
 
   # FuckCustomTab
   **去他妈的应用内浏览器**
+  ![LSPosed](https://img.shields.io/badge/LSPosed-Supported-brightgreen)
+  ![下载次数](https://img.shields.io/badge/Downloads-1000%2B-blue)
 </div>
 
 ---
