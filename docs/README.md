@@ -19,6 +19,10 @@
 | Edge | 143.0.3650.139 |
 | Chrome | 143.0.7499.192 |
 
+## 如果不适配你的浏览器
+
+如果本模块没有适配你使用的浏览器，欢迎 [提交 Issue](https://github.com/yourusername/yourrepository/issues)，我会尽快处理。
+
 <details>
 <summary><strong>制作原因</strong></summary>
 
