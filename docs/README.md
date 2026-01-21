@@ -16,8 +16,8 @@
 | 浏览器 | 版本 |
 | --- | --- |
 | Via | 6.9.0 |
-| Chrome | 143.0.7499.192 |
 | Edge | 143.0.3650.139 |
+| Chrome | 143.0.7499.192 |
 
 <details>
 <summary><strong>制作原因</strong></summary>
