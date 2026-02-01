@@ -6,6 +6,7 @@
   <br>
 [![LSPosed](https://img.shields.io/badge/lsposed-supported-white?color=B88193&logo=github)](https://github.com/Xposed-Modules-Repo/via.fuckcustomtab.frisk)
 [![下载次数](https://img.shields.io/github/downloads/frisk1127/FuckCustomTab/total?color=blue)](https://github.com/frisk1127/FuckCustomTab/releases)
+  <p><strong>中文</strong> | <a href="#english">English</a></p>
 </div>
 
 ---
@@ -44,5 +45,46 @@ Via 在版本 6.9.0 适配了链接应用内打开 导致想要使用浏览器�
 ## 效果
 
 | 使用前 | 使用后 |
+| --- | --- |
+| <img src="./before.jpg" width="380" alt="Before" /> | <img src="./after.jpg" width="380" alt="After" /> |
+
+---
+
+## English
+
+### Purpose
+Block browsers from opening links with in-app browsers (CustomTabs).
+
+In theory, it supports all browsers that use CustomTabs.
+
+### Tested
+| Browser | Version |
+| --- | --- |
+| Via | 6.9.0 |
+| Edge | 143.0.3650.139 |
+| Chrome | 143.0.7499.192 |
+
+## If it does not support your browser
+
+If this module does not support your browser, feel free to [file an Issue](https://github.com/frisk1127/FuckCustomTab/issues). I will handle it as soon as possible.
+
+<details>
+<summary><strong>Why I made this</strong></summary>
+
+<p></p>
+
+<p>
+Via added in-app link opening in version 6.9.0. To use the built-in download manager and similar pages, you must tap another button to jump to Via, which is very inconvenient.
+</p>
+
+<p>
+This module removes that behavior.
+</p>
+
+</details>
+
+## Result
+
+| Before | After |
 | --- | --- |
 | <img src="./before.jpg" width="380" alt="Before" /> | <img src="./after.jpg" width="380" alt="After" /> |
