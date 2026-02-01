@@ -6,7 +6,7 @@
   <br>
 [![LSPosed](https://img.shields.io/badge/lsposed-supported-white?color=B88193&logo=github)](https://github.com/Xposed-Modules-Repo/via.fuckcustomtab.frisk)
 [![下载次数](https://img.shields.io/github/downloads/frisk1127/FuckCustomTab/total?color=blue)](https://github.com/frisk1127/FuckCustomTab/releases)
-  <p><strong>中文</strong> | <a href="#english">English</a></p>
+  <p><strong>简体中文</strong> | <a href="#english">English</a></p>
 </div>
 
 ---
