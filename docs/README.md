@@ -88,3 +88,5 @@ This module removes that behavior.
 | Before | After |
 | --- | --- |
 | <img src="./before.jpg" width="380" alt="Before" /> | <img src="./after.jpg" width="380" alt="After" /> |
+## Star
+[![Stargazers over time](https://starchart.cc/frisk1127/FuckCustomTab.svg?background=%23FFFFFF&axis=%23333333&line=%236b63ff)]([https://starchart.cc/Xposed-Modules-Repo/sama.october.FuckTapVerify](https://github.com/frisk1127/FuckCustomTab))
