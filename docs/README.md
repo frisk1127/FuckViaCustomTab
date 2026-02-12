@@ -59,6 +59,8 @@ Block browsers from opening links with in-app browsers (CustomTabs).
 
 In theory, it supports all browsers that use CustomTabs.
 
+Note: Since version 7.0.0, Via natively supports disabling Custom Tabs. Please use the built-in option (Settings → Advanced → Disable Custom Tabs).
+
 ### Tested
 | Browser | Version |
 | --- | --- |
