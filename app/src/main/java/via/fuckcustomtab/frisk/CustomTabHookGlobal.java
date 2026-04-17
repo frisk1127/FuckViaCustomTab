@@ -29,18 +29,20 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
                 lpparam.classLoader
         );
         if (cct != null) {
-            XposedBridge.hookAllMethods(cct, "launchUrl", new XC_MethodReplacement() {
+            XposedBridge.hookAllMethods(cct, "launchUrl", new XC_MethodHook() {
                 @Override
-                protected Object replaceHookedMethod(MethodHookParam param) {
+                protected void beforeHookedMethod(MethodHookParam param) {
                     Context ctx = (Context) param.args[0];
                     Uri uri = (Uri) param.args[1];
 
-                    logInfo("CustomTabsIntent.launchUrl -> ACTION_VIEW",
-                            "pkg=" + safePackageName(ctx) + " url=" + uri);
-                    Intent i = new Intent(Intent.ACTION_VIEW, uri);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ctx.startActivity(i);
-                    return null;
+                    if (isWebScheme(uri)) {
+                        logInfo("CustomTabsIntent.launchUrl -> ACTION_VIEW",
+                                "pkg=" + safePackageName(ctx) + " url=" + uri);
+                        Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        ctx.startActivity(i);
+                        param.setResult(null);
+                    }
                 }
             });
         }
@@ -50,18 +52,20 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
                 lpparam.classLoader
         );
         if (cctSupport != null) {
-            XposedBridge.hookAllMethods(cctSupport, "launchUrl", new XC_MethodReplacement() {
+            XposedBridge.hookAllMethods(cctSupport, "launchUrl", new XC_MethodHook() {
                 @Override
-                protected Object replaceHookedMethod(MethodHookParam param) {
+                protected void beforeHookedMethod(MethodHookParam param) {
                     Context ctx = (Context) param.args[0];
                     Uri uri = (Uri) param.args[1];
 
-                    logInfo("CustomTabsIntent(support).launchUrl -> ACTION_VIEW",
-                            "pkg=" + safePackageName(ctx) + " url=" + uri);
-                    Intent i = new Intent(Intent.ACTION_VIEW, uri);
-                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    ctx.startActivity(i);
-                    return null;
+                    if (isWebScheme(uri)) {
+                        logInfo("CustomTabsIntent(support).launchUrl -> ACTION_VIEW",
+                                "pkg=" + safePackageName(ctx) + " url=" + uri);
+                        Intent i = new Intent(Intent.ACTION_VIEW, uri);
+                        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        ctx.startActivity(i);
+                        param.setResult(null);
+                    }
                 }
             });
         }
@@ -115,7 +119,7 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
                             boolean isCustomTab = intent.getBooleanExtra("CUSTOM_TAB", false)
                                     || hasCustomTabExtras(intent);
 
-                            if (url != null && isCustomTab) {
+                            if (isCustomTab && isWebScheme(url)) {
                                 logInfo("Trampoline opened via CustomTab",
                                         "url=" + url + " " + buildIntentSummary(intent));
 
@@ -135,7 +139,17 @@ public class CustomTabHookGlobal implements IXposedHookLoadPackage {
         }
     }
 
+    private boolean isWebScheme(Uri uri) {
+        if (uri == null) return false;
+        String scheme = uri.getScheme();
+        return "http".equalsIgnoreCase(scheme) || "https".equalsIgnoreCase(scheme);
+    }
+
     private boolean isCustomTabIntent(Intent intent) {
+        if (!isWebScheme(intent.getData())) {
+            return false;
+        }
+
         ComponentName component = intent.getComponent();
         if (component != null) {
             String className = component.getClassName();
