@@ -27,7 +27,7 @@
 
 ## 如果不适配你的浏览器
 
-如果本模块没有适配你使用的浏览器，欢迎 [提交 Issue](https://github.com/frisk1127/FuckCustomTab/issues)，我会尽快处理。（注：如果作用域里没有你使用的浏览器，不代表本模块不支持，请在确认测试无效后再提交 issue）
+如果本模块没有适配你使用的浏览器，欢迎 [提交 Issue](https://github.com/frisk1127/FuckCustomTab/issues)，我会尽快处理。（注：如果推荐作用域里没有你使用的浏览器，不代表本模块不支持，请在确认测试无效后再提交 issue）
 
 <details>
 <summary><strong>制作原因</strong></summary>
@@ -70,7 +70,7 @@ Note: Since version 7.0.0, Via natively supports disabling Custom Tabs. Please u
 
 ## If it does not support your browser
 
-If this module does not support your browser, feel free to [file an Issue](https://github.com/frisk1127/FuckCustomTab/issues). I will handle it as soon as possible.（Important: If your browser is not listed in the tested scope, it doesn't necessarily mean the module doesn't support it. Please ensure that the issue persists after testing before submitting an issue.）
+If this module does not support your browser, feel free to [file an Issue](https://github.com/frisk1127/FuckCustomTab/issues). I will handle it as soon as possible.（Important: If your browser is not listed in the recommended scope, it doesn't necessarily mean the module doesn't support it. Please ensure that the issue persists after testing before submitting an issue.）
 
 <details>
 <summary><strong>Why I made this</strong></summary>
