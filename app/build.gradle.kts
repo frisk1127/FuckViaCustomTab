@@ -10,8 +10,8 @@ android {
         applicationId = "via.fuckcustomtab.frisk"
         minSdk = 24
         targetSdk = 36
-        versionCode = 102
-        versionName = "1.2"
+        versionCode = 103
+        versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
